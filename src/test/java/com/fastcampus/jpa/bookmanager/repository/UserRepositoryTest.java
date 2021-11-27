@@ -149,4 +149,9 @@ class UserRepositoryTest {
         System.out.println("findByNameContains : " + userRepository.findByNameContains("art"));
         //findByNameLike("%art%"); mar%, %tin 가독성이 별로여서 contains를 씀
     }
+
+    @Test
+    void pagingAndSortingTest(){
+        System.out.println("findTop1ByName : " + userRepository.findTop1ByName("martin"));
+    }
 }

@@ -54,5 +54,5 @@ public interface UserRepository extends JpaRepository<User,Long> {
     List<User> findByNameEndingWith(String name);
     List<User> findByNameContains(String name);
 //    List<User> findByName(String name); findUserByNameIs, findUserByNameEquals 같은 결과지만 코딩 가독성을 위해 쓰기도한다.
-
+    List<User> findTop1ByName(String name);
 }
