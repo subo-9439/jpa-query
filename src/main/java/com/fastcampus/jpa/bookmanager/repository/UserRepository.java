@@ -1,6 +1,9 @@
 package com.fastcampus.jpa.bookmanager.repository;
 
 import com.fastcampus.jpa.bookmanager.domain.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
@@ -31,7 +34,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
 //    //인식되지 않음 find1이랑 같은 쿼리 결과가나옴
 ////    List<User> findLast1ByName(String name);
 //
-//    //And ,or
+//    //And ,or where의 의미이다
 //    List<User> findByEmailAndName(String email, String name);
 //    List<User> findByEmailOrName(String email, String name);
 //    //크다(>) After 작다(<) Before
@@ -55,4 +58,15 @@ public interface UserRepository extends JpaRepository<User,Long> {
     List<User> findByNameContains(String name);
 //    List<User> findByName(String name); findUserByNameIs, findUserByNameEquals 같은 결과지만 코딩 가독성을 위해 쓰기도한다.
     List<User> findTop1ByName(String name);
+    //sort
+    //정순이라면 Asc
+    List<User> findTop1ByNameOrderByIdDesc(String name);
+    //Top 이랑 First는 같은 의미 Order를 나타내는 By키워드는  And나 or 없이 그대로 이어서 작성
+    List<User> findFirstByNameOrderByIdDescEmailAsc(String name);
+    //Sort 클래스 이용하기
+    List<User> findFirstByName(String name, Sort sort);
+
+    //page
+    Page<User> findByName(String name, Pageable pageable);
+
 }

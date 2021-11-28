@@ -5,8 +5,9 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.*;
-
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -152,7 +153,33 @@ class UserRepositoryTest {
 
     @Test
     void pagingAndSortingTest(){
+        //sort
+        //숫자 1 생략해도 같은 의미
         System.out.println("findTop1ByName : " + userRepository.findTop1ByName("martin"));
-        System.out.println("findTop1ByName : " + userRepository.findTop1ByName("martin"));
+        System.out.println("findTop1ByNameOrderByIdDesc : " + userRepository.findTop1ByNameOrderByIdDesc("martin"));
+//        System.out.println("findLast1ByName : " + userRepository.findLast1ByName("martin"));  제기능을 못함 위처럼해야 제기능이됨
+        System.out.println("findFirstByNameOrderByIdDescEmailAsc : " + userRepository.findFirstByNameOrderByIdDescEmailAsc("martin"));
+        //Sort 클래스 이용해서 정렬하기
+        //Order 클래스 직접 임포팅해줘여함
+        System.out.println("findFirstByNameWithSortParam : " + userRepository.findFirstByName("martin",Sort.by(Sort.Order.desc("id"))));
+        System.out.println("findFirstByNameWithSortParams : " + userRepository.findFirstByName("martin", Sort.by(Order.desc("id"),Order.asc("email"))));
+        System.out.println("findFirstByNameWithSortParamsMethod:" + userRepository.findFirstByName("martin",getSort()));
+
+        //page 페이지는 제로베이스 인덱스라 0페이지부터 보여준다.
+        System.out.println("findByNameWithPaging : " + userRepository.findByName("martin", PageRequest.of(0,1,Sort.by(Order.desc("id")))));
+        //페이지의 내용
+        System.out.println("findByNameWithPaging내용 : " + userRepository.findByName("martin", PageRequest.of(0,1,Sort.by(Order.desc("id")))).getContent());
+        //2
+        System.out.println("findByNameWithPaging내용 : " + userRepository.findByName("martin", PageRequest.of(0,1,Sort.by(Order.desc("id")))).getTotalElements());
+
+    }
+
+    private Sort getSort(){
+        return Sort.by(
+                Order.desc("id"),
+                Order.asc("email"),
+                Order.desc("createdAt"),
+                Order.asc("updatedAt")
+        );
     }
 }
