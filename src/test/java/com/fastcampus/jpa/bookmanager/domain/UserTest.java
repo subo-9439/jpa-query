@@ -13,8 +13,8 @@ public class UserTest {
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
 
-        User user1 = new User(null,"sdaf", "asdfsdaf2@sdaf.com",LocalDateTime.now(),LocalDateTime.now(),null);
-        User user2 = new User(null,"asdfdas","asdfsadf@adsf.com",LocalDateTime.now(),LocalDateTime.now(),null);
+//        User user1 = new User(null,"sdaf", "asdfsdaf2@sdaf.com",LocalDateTime.now(),LocalDateTime.now(),null);
+//        User user2 = new User(null,"asdfdas","asdfsadf@adsf.com",LocalDateTime.now(),LocalDateTime.now(),null);
 
         User user3 = User.builder()
                 .name("subo")
