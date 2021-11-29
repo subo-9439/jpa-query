@@ -12,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Data
 @Entity
+@EntityListeners(value = MyEntityListener.class)
 @Builder
 //@Table(name = "user_legacy")// 테이블 이름 변경 하지만
 //@Table(name = "user", indexes = { @Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
@@ -44,4 +45,40 @@ public class User {
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<Address> address;
+
+    //Persist => insert
+    //Update => merge
+    //Remove => delte
+    //Load => select
+//    @PrePersist
+//    public void prePersist(){
+//        this.createdAt = LocalDateTime.now();
+//        this.updatedAt = LocalDateTime.now();
+//        System.out.println(">>> prePersist");
+//    }
+//    @PostPersist
+//    public void postPersist(){
+//        System.out.println(">>> postPersist");
+//    }
+//    @PreUpdate
+//    public void preUpdate(){
+//        this.updatedAt = LocalDateTime.now();
+//        System.out.println(">>> preUpdate");
+//    }
+//    @PostUpdate
+//    public void postUpdate(){
+//        System.out.println(">>> postUpdate");
+//    }
+//    @PreRemove
+//    public void preRemove(){
+//        System.out.println(">>> preRemove");
+//    }
+//    @PostRemove
+//    public void postRemove(){
+//        System.out.println(">>> postRemove");
+//    }
+//    @PostLoad
+//    public void postLoad(){
+//        System.out.println(">>> postLoad");
+//    }
 }
