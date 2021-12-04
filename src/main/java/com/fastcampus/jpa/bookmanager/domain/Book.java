@@ -27,6 +27,7 @@ public class Book extends BaseEntity implements Auditable {
     private String name;
 
     private String author;
+    private String author;
 
 //    @CreatedDate
 //    private LocalDateTime createdAt;
