@@ -25,9 +25,9 @@ import java.util.List;
 //@Table(name = "user_legacy")// 테이블 이름 변경 하지만
 //@Table(name = "user", indexes = { @Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 @Table
-public class User extends BaseEntity implements Auditable {
+public class User extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull

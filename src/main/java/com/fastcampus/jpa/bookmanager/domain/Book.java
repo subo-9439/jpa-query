@@ -19,29 +19,25 @@ import java.time.LocalDateTime;
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class Book extends BaseEntity implements Auditable {
+public class Book extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    private String author;
-    private String author;
+    private String category;
 
-//    @CreatedDate
-//    private LocalDateTime createdAt;
-//    @LastModifiedDate
-//    private LocalDateTime updatedAt;
+    private Long authorId;
 
-//    @PrePersist
-//    public void prePersist(){
-//        this.createdAt = LocalDateTime.now();
-//        this.updatedAt = LocalDateTime.now();
-//    }
-//
-//    @PreUpdate
-//    public void preUpdate() {
-//        this.updatedAt = LocalDateTime.now();
-//    }
+    private Long publisherId;
+
+    //Entity relation에선 특별한경우가 아니고선 단방향으로 만해야한다
+    //또는 ToString.Exclude를 해줘야 한다.
+
+    @OneToOne(optional = true , mappedBy = "book")
+    @ToString.Exclude
+    private BookReviewInfo bookReviewInfo;
+
+
 }
