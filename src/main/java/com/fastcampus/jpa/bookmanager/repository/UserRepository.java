@@ -52,7 +52,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     //3
     List<User> findByIdIsNotNull();
 //    List<User> findByIdIsNotEmpty(); 객체명에 맞게 해줘야함 >> Address
-    List<User> findByAddressIsNotEmpty(); // collection 객체 자체가 empty이다
+//    List<User> findByAddressIsNotEmpty(); // collection 객체 자체가 empty이다
 
     List<User> findByNameIn(List<String> names);
     List<User> findByNameStartingWith(String name);

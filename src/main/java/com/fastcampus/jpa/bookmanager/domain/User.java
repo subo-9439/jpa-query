@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -19,12 +20,12 @@ import java.util.List;
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@Builder
 @Entity
 @EntityListeners(value =  UserEntityListener.class)
-@Builder
 //@Table(name = "user_legacy")// 테이블 이름 변경 하지만
 //@Table(name = "user", indexes = { @Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
-@Table
+//@Table
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,22 +41,31 @@ public class User extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @Builder.Default
+    @ToString.Exclude
+    private List<UserHistory> userHistories = new ArrayList<>();
+
+    @OneToMany
+    @ToString.Exclude
+    private List<Review> reviews = new ArrayList<>();
     //임의로 mapping
     //    @Column(name = "creatAt", nullable = false) not null <<
     //  @Column(unique = true) unique한 속성을 가지게됨
-    @Column(updatable = false)// update시에 생략함
+//    @Column(updatable = false)// update시에 생략함
 
-    @CreatedDate //jpad에서 제공해주는 기본 Listener
-    private LocalDateTime createdAt;
+//    @CreatedDate //jpa에서 제공해주는 기본 Listener
+//    private LocalDateTime createdAt;
 
 //    @LastModifiedDate //jpa에서 제공해주는 기본Listener
 //    private LocalDateTime updatedAt;
 //
 //    @Transient // db에 반영하지 않음 객체에서 따로 쓰기위한용도
 //    private String testData;
+//    @OneToMany(fetch = FetchType.EAGER)
+//    private List<Address> address;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Address> address;
 
     //Persist => insert
     //Update => merge

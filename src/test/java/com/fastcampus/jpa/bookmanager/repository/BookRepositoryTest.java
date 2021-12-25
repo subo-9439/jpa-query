@@ -9,16 +9,31 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class BookRepositoryTest {
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private PublisherRepository publisherRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     void bookTest() {
         Book book = new Book();
         book.setName("jpa 초격차 패키지");
         book.setAuthorId(1L);
-        book.setPublisherId(1L);
+//        book.setPublisherId(1L);
 
         bookRepository.save(book);
 
         System.out.println(bookRepository.findAll());
+    }
+
+    @Test
+    void bookRelationTest() {
+        givenBookAndReview();
+    }
+
+    private void givenBookAndReview() {
+        givenReview();
     }
 }

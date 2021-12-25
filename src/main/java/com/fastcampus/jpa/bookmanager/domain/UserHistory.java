@@ -25,11 +25,12 @@ public class UserHistory extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    private Long userId;
-
     private String name;
 
     private String email;
+
+    @ManyToOne
+    private User user;
 
 //    @CreatedDate //Jpa에서 제공해주는 Listener
 //    private LocalDateTime createdAt;

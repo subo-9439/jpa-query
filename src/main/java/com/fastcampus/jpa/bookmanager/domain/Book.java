@@ -12,6 +12,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 //@EntityListeners(value = AuditingEntityListener.class)
@@ -30,7 +32,7 @@ public class Book extends BaseEntity {
 
     private Long authorId;
 
-    private Long publisherId;
+//    private Long publisherId;
 
     //Entity relation에선 특별한경우가 아니고선 단방향으로 만해야한다
     //또는 ToString.Exclude를 해줘야 한다.
@@ -38,6 +40,15 @@ public class Book extends BaseEntity {
     @OneToOne(optional = true , mappedBy = "book")
     @ToString.Exclude
     private BookReviewInfo bookReviewInfo;
+
+    @OneToMany
+    @JoinColumn(name = "book_id")
+    @ToString.Exclude
+    private List<Review> reviews = new ArrayList<>();
+
+    @ManyToOne
+    @ToString.Exclude
+    private Publisher publisher;
 
 
 }
