@@ -48,6 +48,7 @@ public class User extends BaseEntity {
     private List<UserHistory> userHistories = new ArrayList<>();
 
     @OneToMany
+    @JoinColumn(name = "user_id")
     @ToString.Exclude
     private List<Review> reviews = new ArrayList<>();
     //임의로 mapping
