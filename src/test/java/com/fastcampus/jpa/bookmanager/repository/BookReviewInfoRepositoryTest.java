@@ -5,10 +5,12 @@ import com.fastcampus.jpa.bookmanager.domain.BookReviewInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 class BookReviewInfoRepositoryTest {
     @Autowired
     private BookReviewInfoRepository bookReviewInfoRepository;
@@ -29,21 +31,21 @@ class BookReviewInfoRepositoryTest {
 
     @Test
     void crudTest2(){
-        givenBookReview();
-
-        Book result = bookReviewInfoRepository
-                .findById(1L)
-                .orElseThrow(RuntimeException::new)
-                .getBook();
-
-        System.out.println(">>>>"+result);
-
-        BookReviewInfo result2 = bookRepository
-                .findById(1L)
-                .orElseThrow(RuntimeException::new)
-                .getBookReviewInfo();
-
-        System.out.println(">>>" + result2);
+//        givenBookReview();
+//
+//        Book result = bookReviewInfoRepository
+//                .findById(1L)
+//                .orElseThrow(RuntimeException::new)
+//                .getBook();
+//
+//        System.out.println(">>>>"+result);
+//
+//        BookReviewInfo result2 = bookRepository
+//                .findById(1L)
+//                .orElseThrow(RuntimeException::new)
+//                .getBookReviewInfo();
+//
+//        System.out.println(">>>" + result2);
     }
 
     private Book givenBook() {

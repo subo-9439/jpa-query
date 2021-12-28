@@ -10,7 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 
 
 @SpringBootTest
-
+@Transactional
 class UserRepositoryTest {
 
     @Autowired
