@@ -1,5 +1,6 @@
 spring:
   datasource:
+    sql-script-encoding: UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/book_manager?serverTimezone=Asia/Seoul
     username: root
@@ -17,6 +18,5 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: create-drop
-
 server:
   port: 9090

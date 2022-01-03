@@ -50,6 +50,7 @@ public class User extends BaseEntity {
     @OneToMany
     @JoinColumn(name = "user_id")
     @ToString.Exclude
+    @Builder.Default
     private List<Review> reviews = new ArrayList<>();
     //임의로 mapping
     //    @Column(name = "creatAt", nullable = false) not null <<
