@@ -11,11 +11,11 @@
 
 insert into publisher(`id`, `name`) values (1, '패스트캠퍼스');
 
-insert into book(`id`, `name`, `publisher_id`, `deleted`) values (1, 'JPA 초격차 패키지', 1, false);
+insert into book(`id`, `name`, `publisher_id`, `deleted`, `status`) values (1, 'JPA 초격차 패키지', 1, false, 100);
 
-insert into book(`id`, `name`, `publisher_id`, `deleted`) values (2, 'Spring Security 초격차 패키지', 1, false);
 
-insert into book(`id`, `name`, `publisher_id`, `deleted`) values (3, 'Spring Security 초격차 패키지', 1, true);
+insert into book(`id`, `name`, `publisher_id`, `deleted`, `status`) values (2, 'Spring Security 초격차 패키지', 1, false, 200);
+insert into book(`id`, `name`, `publisher_id`, `deleted`, `status`) values (3, 'Spring Security 초격차 패키지', 1, true, 100);
 
 
 --insert into book(`id`, `name`, `publisher_id`, `deleted`, `created_at`, `updated_at`) values (1, 'JPA 초격차 패키지', 1, false, now(), now());
