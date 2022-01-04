@@ -17,6 +17,7 @@ import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
@@ -313,12 +314,19 @@ class UserRepositoryTest {
         user2.setHomeAddress(new Address());
         user2.setCompanyAddress(new Address());
         userRepository.save(user2);
-        entityManager.clear();
 
+//        entityManager.clear();
 
         userRepository.findAll().forEach(System.out::println);
         userHistoryRepository.findAll().forEach(System.out::println);
 
         userRepository.findAllRawRecord().forEach(a -> System.out.println(a.values()));
+
+
+        //만약 entityManage.clear();을 실행하고 하면 캐시와 실제 db간의 충돌이 일어나 오류가난다.
+        assertAll(
+                () -> assertThat(userRepository.findById(7L).get().getHomeAddress()).isNull(),
+                () -> assertThat(userRepository.findById(8L).get().getHomeAddress()).isInstanceOf(Address.class)
+        );
     }
 }
