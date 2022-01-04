@@ -1,12 +1,23 @@
 package com.fastcampus.jpa.bookmanager.domain;
 
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.*;
-
+/**
+ * @author Martin
+ * @since 2021/04/21
+ */
 @Entity
 @NoArgsConstructor
 @Data
@@ -23,9 +34,16 @@ public class Review extends BaseEntity {
 
     private float score;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Book book;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "review_id")
+    private List<Comment> comments;
+
 }
