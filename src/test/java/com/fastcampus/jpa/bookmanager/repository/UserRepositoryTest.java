@@ -1,5 +1,6 @@
 package com.fastcampus.jpa.bookmanager.repository;
 
+import com.fastcampus.jpa.bookmanager.domain.Address;
 import com.fastcampus.jpa.bookmanager.domain.Gender;
 import com.fastcampus.jpa.bookmanager.domain.User;
 import com.fastcampus.jpa.bookmanager.domain.UserHistory;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,6 +30,9 @@ class UserRepositoryTest {
     private UserRepository userRepository;
     @Autowired
     private UserHistoryRepository userHistoryRepository;
+    @Autowired
+    private EntityManager entityManager;
+
 
     @Test
     @Transactional //3
@@ -101,7 +106,7 @@ class UserRepositoryTest {
 //        Example<User> example1 = Example.of(user,matcher);
 
         //11 update에 대한 이해 SimpleJpaRepository.java save가 insert와 update가 구현되어있음
-        userRepository.save(new User("david", " david@fastcampus@.com"));
+//        userRepository.save(new User("david", " david@fastcampus@.com"));
 
         User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
         user.setEmail("martin-updated@fastcampus.com");
@@ -225,7 +230,6 @@ class UserRepositoryTest {
 
         userRepository.deleteById(4L);
     }
-
     @Test
     void prePersistTest(){
         User user = new User();
@@ -237,6 +241,7 @@ class UserRepositoryTest {
 
         System.out.println(userRepository.findByEmail("martin2@fastcampus.com"));
     }
+
     @Test
     void preUpdateTest(){
         User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
@@ -286,5 +291,34 @@ class UserRepositoryTest {
         result.forEach(System.out::println);
 
         System.out.println("UserHistory.getUser() : " + userHistoryRepository.findAll().get(0).getUser());
+    }
+    @Test
+    void embedTest(){
+        userRepository.findAll().forEach(System.out::println);
+        User user = new User();
+        user.setName("steve");
+        user.setHomeAddress(new Address("서울시", "강남구", "강남대로 364 미왕빌딩", "06241"));
+        user.setCompanyAddress(new Address("서울시", "성동구", "성수이로 113 제강빌딩", "01234"));
+        userRepository.save(user);
+
+        User user1 = new User();
+        user1.setName("joshua");
+        user1.setHomeAddress(null);
+        user1.setCompanyAddress(null);
+
+        userRepository.save(user1);
+
+        User user2 = new User();
+        user2.setName("jordan");
+        user2.setHomeAddress(new Address());
+        user2.setCompanyAddress(new Address());
+        userRepository.save(user2);
+        entityManager.clear();
+
+
+        userRepository.findAll().forEach(System.out::println);
+        userHistoryRepository.findAll().forEach(System.out::println);
+
+        userRepository.findAllRawRecord().forEach(a -> System.out.println(a.values()));
     }
 }
